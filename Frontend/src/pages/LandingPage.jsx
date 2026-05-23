@@ -41,6 +41,63 @@ const steps = [
   { n: "03", title: "Results emailed to you", desc: "All three files arrive as attachments — ready to use." },
 ];
 
+function SilhouettePreview() {
+  return (
+    <div className="relative h-24 w-24">
+      <div className="absolute inset-0 rounded-[28px] bg-stone-900 rotate-6" />
+      <div className="absolute left-5 top-3 h-14 w-14 rounded-[20px] bg-stone-900 -rotate-12" />
+      <div className="absolute right-2 top-8 h-10 w-10 rounded-[14px] bg-stone-900 rotate-12" />
+      <div className="absolute bottom-2 left-7 h-9 w-9 rounded-full bg-stone-900" />
+    </div>
+  );
+}
+
+function BorderPreview() {
+  return (
+    <div className="relative h-24 w-24">
+      <div className="absolute inset-0 rounded-[28px] border-[3px] border-stone-900 rotate-6 bg-white" />
+      <div className="absolute left-5 top-3 h-14 w-14 rounded-[20px] border-[3px] border-stone-900 -rotate-12 bg-white" />
+      <div className="absolute right-2 top-8 h-10 w-10 rounded-[14px] border-[3px] border-stone-900 rotate-12 bg-white" />
+      <div className="absolute bottom-2 left-7 h-9 w-9 rounded-full border-[3px] border-stone-900 bg-white" />
+    </div>
+  );
+}
+
+function GrayscalePreview() {
+  return (
+    <div className="relative h-24 w-24">
+      <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-stone-200 via-stone-500 to-stone-800 rotate-6" />
+      <div className="absolute left-5 top-3 h-14 w-14 rounded-[20px] bg-gradient-to-br from-white via-stone-400 to-stone-700 -rotate-12 opacity-90" />
+      <div className="absolute right-2 top-8 h-10 w-10 rounded-[14px] bg-gradient-to-br from-stone-100 to-stone-700 rotate-12 opacity-90" />
+      <div className="absolute bottom-2 left-7 h-9 w-9 rounded-full bg-gradient-to-br from-stone-50 to-stone-600 opacity-95" />
+    </div>
+  );
+}
+
+const previewCards = [
+  {
+    label: "Silhouette",
+    bg: "bg-white",
+    frame: "border border-stone-200",
+    caption: "Solid filled brand shape",
+    preview: <SilhouettePreview />,
+  },
+  {
+    label: "Edge / Border",
+    bg: "bg-white",
+    frame: "border border-stone-200",
+    caption: "Clean outline extraction",
+    preview: <BorderPreview />,
+  },
+  {
+    label: "Grayscale",
+    bg: "bg-[linear-gradient(180deg,#f5f5f4_0%,#e7e5e4_100%)]",
+    frame: "border border-stone-300/80",
+    caption: "Contrast-balanced monochrome",
+    preview: <GrayscalePreview />,
+  },
+];
+
 export default function LandingPage({ navigate }) {
   return (
     <div className="pt-16 pb-24 md:pb-12">
@@ -78,26 +135,27 @@ export default function LandingPage({ navigate }) {
           </motion.div>
         </motion.div>
 
-        {/* Preview cards - Restored original 3-column layout */}
+        {/* Preview cards */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-20 grid grid-cols-3 gap-4"
+          className="mt-20 grid gap-4 md:grid-cols-3"
         >
-          {[
-            { label: "Silhouette", bg: "bg-stone-900", color: "text-white", icon: "▲" },
-            { label: "Edge / Border", bg: "bg-white border border-stone-200", color: "text-stone-900", icon: "△" },
-            { label: "Grayscale", bg: "bg-stone-100", color: "text-stone-600", icon: "▲" },
-          ].map((card, i) => (
+          {previewCards.map((card, i) => (
             <motion.div
               key={i}
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className={`${card.bg} rounded-2xl p-8 flex flex-col items-center justify-center h-48 shadow-sm`}
+              className={`${card.bg} ${card.frame} rounded-[28px] p-6 md:p-8 flex flex-col items-center justify-between min-h-[250px] shadow-sm`}
             >
-              <span className={`text-5xl ${card.color} mb-3 opacity-70`}>{card.icon}</span>
-              <span className={`text-sm font-medium tracking-wide ${card.color} opacity-60`}>{card.label}</span>
+              <div className="flex h-[150px] w-full items-center justify-center rounded-[22px] bg-white/70">
+                {card.preview}
+              </div>
+              <div className="mt-4 text-center">
+                <p className="text-sm font-semibold tracking-wide text-stone-900">{card.label}</p>
+                <p className="mt-1 text-xs text-stone-500">{card.caption}</p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

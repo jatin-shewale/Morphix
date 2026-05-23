@@ -32,9 +32,6 @@ export default function Navbar({ page, navigate }) {
 
   return (
     <>
-      {/* ========================================================
-          DESKTOP NAVBAR (Exact original design, hidden on mobile)
-         ======================================================== */}
       <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-[#FAF8F4]/80 backdrop-blur-md border-b border-stone-200/60">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <button onClick={() => navigate("landing")} className="flex items-center gap-2 group">
@@ -79,10 +76,7 @@ export default function Navbar({ page, navigate }) {
         </div>
       </nav>
 
-      {/* ========================================================
-          MOBILE HEADER (Slim brand header fixed at top)
-         ======================================================== */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-45 bg-[#FAF8F4]/90 backdrop-blur-md border-b border-stone-200/40 h-14 flex items-center justify-between px-4">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-40 bg-[#FAF8F4]/92 backdrop-blur-md border-b border-stone-200/50 h-14 flex items-center justify-between px-4">
         <button onClick={() => navigate("landing")} className="flex items-center gap-2 group">
           <div className="w-7 h-7 bg-amber-500 rounded-lg flex items-center justify-center">
             <RiSparklingLine className="text-white text-base" />
@@ -100,10 +94,7 @@ export default function Navbar({ page, navigate }) {
         </button>
       </header>
 
-      {/* ========================================================
-          MOBILE BOTTOM DOCK NAVBAR (Fixed at bottom, hidden on md)
-         ======================================================== */}
-      <nav className="md:hidden fixed bottom-4 left-4 right-4 z-50 bg-[#FAF8F4]/90 backdrop-blur-lg border border-stone-200/60 rounded-2xl shadow-xl shadow-stone-900/5 h-16 flex items-center justify-around px-2">
+      <nav className="md:hidden fixed bottom-3 left-3 right-3 z-50 bg-[#fffaf0]/92 backdrop-blur-xl border border-stone-200/80 rounded-[22px] shadow-[0_18px_50px_rgba(28,25,23,0.12)] h-[70px] flex items-center justify-around px-2 pb-[max(env(safe-area-inset-bottom),0px)]">
         {links.map((link) => {
           const isActive = page === link.id;
           return (
@@ -115,7 +106,7 @@ export default function Navbar({ page, navigate }) {
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-pill"
-                  className="absolute inset-x-2 inset-y-1.5 bg-amber-500/10 rounded-xl border border-amber-500/15"
+                  className="absolute inset-x-1.5 inset-y-1.5 bg-gradient-to-b from-amber-100 to-amber-50 rounded-2xl border border-amber-200/70"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
@@ -123,7 +114,7 @@ export default function Navbar({ page, navigate }) {
               <div className={`relative z-10 transition-transform duration-200 ${isActive ? "scale-110 text-amber-600" : "text-stone-400"}`}>
                 {isActive ? link.iconFilled : link.iconOutline}
               </div>
-              <span className={`relative z-10 text-[10px] font-semibold mt-1 transition-colors ${isActive ? "text-amber-700" : "text-stone-400"}`}>
+              <span className={`relative z-10 text-[10px] font-semibold mt-1 transition-colors ${isActive ? "text-amber-700" : "text-stone-500"}`}>
                 {link.label}
               </span>
             </button>
