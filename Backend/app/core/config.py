@@ -30,6 +30,13 @@ def _normalize_origin(origin: str) -> str:
     return cleaned.rstrip("/") if cleaned else cleaned
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 @dataclass(frozen=True)
 class Settings:
     app_name: str = "Morphix API"
@@ -41,6 +48,7 @@ class Settings:
     smtp_password: str = os.getenv("SMTP_PASSWORD", "")
     default_recipient_email: str = os.getenv("RECIPIENT_EMAIL", "")
     cors_origins: list[str] = None  # type: ignore[assignment]
+    cors_allow_all: bool = _bool_env("CORS_ALLOW_ALL", True)
     cors_origin_regex: str = os.getenv(
         "CORS_ORIGIN_REGEX",
         r"https://.*\.vercel\.app",
