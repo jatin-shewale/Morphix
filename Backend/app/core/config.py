@@ -22,7 +22,12 @@ _load_env_file()
 
 def _csv_env(name: str, default: str) -> list[str]:
     value = os.getenv(name, default)
-    return [item.strip() for item in value.split(",") if item.strip()]
+    return [_normalize_origin(item) for item in value.split(",") if item.strip()]
+
+
+def _normalize_origin(origin: str) -> str:
+    cleaned = origin.strip()
+    return cleaned.rstrip("/") if cleaned else cleaned
 
 
 @dataclass(frozen=True)
@@ -36,6 +41,10 @@ class Settings:
     smtp_password: str = os.getenv("SMTP_PASSWORD", "")
     default_recipient_email: str = os.getenv("RECIPIENT_EMAIL", "")
     cors_origins: list[str] = None  # type: ignore[assignment]
+    cors_origin_regex: str = os.getenv(
+        "CORS_ORIGIN_REGEX",
+        r"https://.*\.vercel\.app",
+    )
     output_dir_name: str = "morphix_outputs"
 
     def __post_init__(self) -> None:
@@ -45,7 +54,7 @@ class Settings:
                 "cors_origins",
                 _csv_env(
                     "CORS_ORIGINS",
-                    "http://localhost:5173,https://morphix-ochre.vercel.app/",
+                    "http://localhost:5173,https://morphix-ochre.vercel.app",
                 ),
             )
 
