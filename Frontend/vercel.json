@@ -2,9 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/process",
+      "destination": "https://morphix-backend-76f2.onrender.com/process"
+    },
+    {
+      "source": "/download/(.*)",
+      "destination": "https://morphix-backend-76f2.onrender.com/download/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
 }
-
