@@ -40,7 +40,7 @@ https://www.loom.com/share/d14c44aafa864919be7965cb0e290ddc
 
 ### Backend
 
-- Python 3.11+
+- Python
 - FastAPI
 - OpenCV
 - Pillow
@@ -49,7 +49,7 @@ https://www.loom.com/share/d14c44aafa864919be7965cb0e290ddc
 
 ### Frontend
 
-- React 18
+- React
 - Vite
 - Tailwind CSS
 - Framer Motion
